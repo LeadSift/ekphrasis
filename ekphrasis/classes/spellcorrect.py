@@ -1,14 +1,16 @@
 import re
 from collections import Counter
 from difflib import SequenceMatcher
-from functools import lru_cache
-
+try:
+    from functools import lru_cache
+except ImportError:
+    from functools32 import lru_cache
 from ekphrasis.utils.helpers import read_stats
 
 REGEX_TOKEN = re.compile(r'\b[a-z]{2,}\b')
 
 
-class SpellCorrector:
+class SpellCorrector(object):
     """
     The SpellCorrector extends the functionality of the Peter Norvig's
     spell-corrector in http://norvig.com/spell-correct.html
@@ -19,7 +21,7 @@ class SpellCorrector:
 
         :param corpus: the statistics from which corpus to use for the spell correction.
         """
-        super().__init__()
+        super(SpellCorrector, self).__init__()
         self.WORDS = Counter(read_stats(corpus, 1))
         self.N = sum(self.WORDS.values())
 

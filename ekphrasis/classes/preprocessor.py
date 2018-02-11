@@ -1,6 +1,10 @@
+from __future__ import print_function
 import re
-from functools import lru_cache
-
+try:
+    from functools import lru_cache
+except ImportError:
+    # functools.lru_cache is only available in Python 3.
+    from functools32 import lru_cache
 import ftfy
 
 from ekphrasis.classes.exmanager import ExManager

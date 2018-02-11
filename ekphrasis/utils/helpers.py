@@ -1,3 +1,5 @@
+from __future__ import print_function
+import io
 import operator
 import os
 import sys
@@ -5,7 +7,10 @@ import ujson as json
 import zipfile
 from functools import reduce
 from os import path
-from urllib.request import urlretrieve
+try:
+    from urllib.request import urlretrieve
+except:
+    from urllib import urlretrieve
 
 stats_dir = path.join(os.path.dirname(os.path.dirname(__file__)), 'stats')
 
@@ -16,7 +21,7 @@ def parse_stats(name, sep='\t', ngram_sep='_'):
     """
     print("reading ngrams", name)
     d = {}
-    with open(name, "r", encoding="utf-8") as f:
+    with io.open(name, "r", encoding="utf-8") as f:
         for line in f:
             values = line.split(sep)
             if len(values) > 2:

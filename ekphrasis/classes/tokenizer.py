@@ -1,4 +1,10 @@
-import html
+# -*- coding: utf-8 -*-
+from __future__ import print_function
+from __future__ import unicode_literals
+try:
+    from html import unescape
+except ImportError:
+    import HTMLParser
 import re
 
 import colorama
@@ -72,7 +78,10 @@ class Tokenizer:
             print()
 
     def tokenize(self, text):
-        escaped = html.unescape(text)
+        try:
+            escaped = html.unescape(text)
+        except:
+            escaped = HTMLParser.HTMLParser().unescape(text)
         tokenized = self.tok.findall(escaped)
 
         if self.verbose:
@@ -239,7 +248,11 @@ class SocialTokenizer:
             print()
 
     def tokenize(self, text):
-        escaped = html.unescape(text)
+        try:
+            escaped = html.unescape(text)
+        except:
+            escaped = HTMLParser.HTMLParser().unescape(text)
+
         tokenized = self.tok.findall(escaped)
 
         if self.verbose:

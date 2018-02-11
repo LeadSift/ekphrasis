@@ -1,5 +1,10 @@
+from __future__ import print_function
 import re
-from functools import lru_cache
+try:
+    from functools import lru_cache
+except ImportError:
+    # functools.lru_cache is only available in Python 3.
+    from functools32 import lru_cache
 from math import log10
 
 from ekphrasis.classes.exmanager import ExManager
@@ -27,7 +32,7 @@ class Pdist(dict):
         return 1. / total
 
     def __init__(self, data=None, total=None, unk_func=None, **kwargs):
-        super().__init__(**kwargs)
+        super(Pdist, self).__init__(**kwargs)
 
         # insert the word counts
         data = data or {}

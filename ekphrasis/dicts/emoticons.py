@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import re
 
 # todo:catch repeating parenthesis
